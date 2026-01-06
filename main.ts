@@ -110,6 +110,7 @@ export default class TemplateFilenamePlugin extends Plugin {
 		
 		while (currentPos < template.length) {
 			// Look for date/time variables
+			/*
 			let foundDateTimeVar = false;
 			for (const dtVar of dateTimeVars) {
 				if (template.substring(currentPos).startsWith(dtVar)) {
@@ -144,6 +145,7 @@ export default class TemplateFilenamePlugin extends Plugin {
 			if (foundDateTimeVar) {
 				continue;
 			}
+			*/
 			
 			// Look for special variables in curly braces
 			if (template[currentPos] === '{') {
