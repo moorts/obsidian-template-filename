@@ -101,51 +101,8 @@ export default class TemplateFilenamePlugin extends Plugin {
 		const tokens: Array<{type: string, value?: string, name?: string, params?: string[]}> = [];
 		let currentPos = 0;
 		
-		// Date/time variables to look for
-		const dateTimeVars = [
-			'YYYY', 'YY', 'MMMM', 'MMM', 'MM', 'M', 
-			'DDD', 'DD', 'D', 'dddd', 'ddd', 'WW', 'Q',
-			'HH', 'H', 'mm', 'm', 'ss', 's', 'SSS'
-		];
-		
 		while (currentPos < template.length) {
 			// Look for date/time variables
-			/*
-			let foundDateTimeVar = false;
-			for (const dtVar of dateTimeVars) {
-				if (template.substring(currentPos).startsWith(dtVar)) {
-					// Found a date/time variable
-					// Add any text before it
-					if (currentPos > 0) {
-						const textBefore = template.substring(0, currentPos);
-						if (textBefore) {
-							tokens.push({
-								type: 'text',
-								value: textBefore
-							});
-						}
-					}
-					
-					// Add the date/time variable
-					tokens.push({
-						type: 'variable',
-						name: dtVar,
-						params: []
-					});
-					
-					// Move past the variable
-					template = template.substring(currentPos + dtVar.length);
-					currentPos = 0;
-					foundDateTimeVar = true;
-					break;
-				}
-			}
-			
-			// If we found a date/time variable, continue to the next iteration
-			if (foundDateTimeVar) {
-				continue;
-			}
-			*/
 			
 			// Look for special variables in curly braces
 			if (template[currentPos] === '{') {
@@ -517,26 +474,26 @@ class TemplateFilenameModal extends Modal {
 		
 		const dateTimeList = dateTimeSection.createEl('ul');
 		const dateTimeItems = [
-			{ name: 'YYYY', desc: '4-digit year (e.g., 2025)' },
-			{ name: 'YY', desc: '2-digit year (e.g., 25)' },
-			{ name: 'MM', desc: '2-digit month (01-12)' },
-			{ name: 'M', desc: 'Month without leading zero (1-12)' },
-			{ name: 'MMMM', desc: 'Full month name (January, February...)' },
-			{ name: 'MMM', desc: 'Short month name (Jan, Feb...)' },
-			{ name: 'DD', desc: '2-digit day (01-31)' },
-			{ name: 'D', desc: 'Day without leading zero (1-31)' },
-			{ name: 'DDD', desc: 'Day of year (001-366)' },
-			{ name: 'dddd', desc: 'Full weekday name (Monday, Tuesday...)' },
-			{ name: 'ddd', desc: 'Short weekday name (Mon, Tue...)' },
-			{ name: 'WW', desc: 'Week number of year (01-53)' },
-			{ name: 'Q', desc: 'Quarter of year (1-4)' },
-			{ name: 'HH', desc: '2-digit hour, 24-hour format (00-23)' },
-			{ name: 'H', desc: 'Hour without leading zero (0-23)' },
-			{ name: 'mm', desc: '2-digit minute (00-59)' },
-			{ name: 'm', desc: 'Minute without leading zero (0-59)' },
-			{ name: 'ss', desc: '2-digit second (00-59)' },
-			{ name: 's', desc: 'Second without leading zero (0-59)' },
-			{ name: 'SSS', desc: '3-digit millisecond (000-999)' }
+			{ name: '{YYYY}', desc: '4-digit year (e.g., 2025)' },
+			{ name: '{YY}', desc: '2-digit year (e.g., 25)' },
+			{ name: '{MM}', desc: '2-digit month (01-12)' },
+			{ name: '{M}', desc: 'Month without leading zero (1-12)' },
+			{ name: '{MMMM}', desc: 'Full month name (January, February...)' },
+			{ name: '{MMM}', desc: 'Short month name (Jan, Feb...)' },
+			{ name: '{DD}', desc: '2-digit day (01-31)' },
+			{ name: '{D}', desc: 'Day without leading zero (1-31)' },
+			{ name: '{DDD}', desc: 'Day of year (001-366)' },
+			{ name: '{dddd}', desc: 'Full weekday name (Monday, Tuesday...)' },
+			{ name: '{ddd}', desc: 'Short weekday name (Mon, Tue...)' },
+			{ name: '{WW}', desc: 'Week number of year (01-53)' },
+			{ name: '{Q}', desc: 'Quarter of year (1-4)' },
+			{ name: '{HH}', desc: '2-digit hour, 24-hour format (00-23)' },
+			{ name: '{H}', desc: 'Hour without leading zero (0-23)' },
+			{ name: '{mm}', desc: '2-digit minute (00-59)' },
+			{ name: '{m}', desc: 'Minute without leading zero (0-59)' },
+			{ name: '{ss}', desc: '2-digit second (00-59)' },
+			{ name: '{s}', desc: 'Second without leading zero (0-59)' },
+			{ name: '{SSS}', desc: '3-digit millisecond (000-999)' }
 		];
 		
 		this.createHelpList(dateTimeList, dateTimeItems);
@@ -721,26 +678,26 @@ class TemplateFilenameSettingTab extends PluginSettingTab {
 		const dateTimeSection = containerEl.createDiv({ cls: 'setting-item-description' });
 		const dateTimeList = dateTimeSection.createEl('ul', { cls: 'help-list' });
 		const dateTimeItems = [
-			{ name: 'YYYY', desc: '4-digit year (e.g., 2025)' },
-			{ name: 'YY', desc: '2-digit year (e.g., 25)' },
-			{ name: 'MM', desc: '2-digit month (01-12)' },
-			{ name: 'M', desc: 'Month without leading zero (1-12)' },
-			{ name: 'MMMM', desc: 'Full month name (January, February...)' },
-			{ name: 'MMM', desc: 'Short month name (Jan, Feb...)' },
-			{ name: 'DD', desc: '2-digit day (01-31)' },
-			{ name: 'D', desc: 'Day without leading zero (1-31)' },
-			{ name: 'DDD', desc: 'Day of year (001-366)' },
-			{ name: 'dddd', desc: 'Full weekday name (Monday, Tuesday...)' },
-			{ name: 'ddd', desc: 'Short weekday name (Mon, Tue...)' },
-			{ name: 'WW', desc: 'Week number of year (01-53)' },
-			{ name: 'Q', desc: 'Quarter of year (1-4)' },
-			{ name: 'HH', desc: '2-digit hour, 24-hour format (00-23)' },
-			{ name: 'H', desc: 'Hour without leading zero (0-23)' },
-			{ name: 'mm', desc: '2-digit minute (00-59)' },
-			{ name: 'm', desc: 'Minute without leading zero (0-59)' },
-			{ name: 'ss', desc: '2-digit second (00-59)' },
-			{ name: 's', desc: 'Second without leading zero (0-59)' },
-			{ name: 'SSS', desc: '3-digit millisecond (000-999)' }
+			{ name: '{YYYY}', desc: '4-digit year (e.g., 2025)' },
+			{ name: '{YY}', desc: '2-digit year (e.g., 25)' },
+			{ name: '{MM}', desc: '2-digit month (01-12)' },
+			{ name: '{M}', desc: 'Month without leading zero (1-12)' },
+			{ name: '{MMMM}', desc: 'Full month name (January, February...)' },
+			{ name: '{MMM}', desc: 'Short month name (Jan, Feb...)' },
+			{ name: '{DD}', desc: '2-digit day (01-31)' },
+			{ name: '{D}', desc: 'Day without leading zero (1-31)' },
+			{ name: '{DDD}', desc: 'Day of year (001-366)' },
+			{ name: '{dddd}', desc: 'Full weekday name (Monday, Tuesday...)' },
+			{ name: '{ddd}', desc: 'Short weekday name (Mon, Tue...)' },
+			{ name: '{WW}', desc: 'Week number of year (01-53)' },
+			{ name: '{Q}', desc: 'Quarter of year (1-4)' },
+			{ name: '{HH}', desc: '2-digit hour, 24-hour format (00-23)' },
+			{ name: '{H}', desc: 'Hour without leading zero (0-23)' },
+			{ name: '{mm}', desc: '2-digit minute (00-59)' },
+			{ name: '{m}', desc: 'Minute without leading zero (0-59)' },
+			{ name: '{ss}', desc: '2-digit second (00-59)' },
+			{ name: '{s}', desc: 'Second without leading zero (0-59)' },
+			{ name: '{SSS}', desc: '3-digit millisecond (000-999)' }
 		];
 		
 		this.createHelpList(dateTimeList, dateTimeItems);
@@ -805,10 +762,10 @@ class TemplateFilenameSettingTab extends PluginSettingTab {
 		const examplesSection = containerEl.createDiv({ cls: 'setting-item-description examples' });
 		const examplesList = examplesSection.createEl('ul', { cls: 'example-list' });
 		const examples = [
-			{ template: 'YYYY-MM-DD_note', desc: '2025-04-24_note.md' },
-			{ template: 'YYYY-MM-DD_HH-mm-ss', desc: '2025-04-24_15-30-45.md' },
-			{ template: 'MMM-D-YYYY_meeting-notes', desc: 'Apr-24-2025_meeting-notes.md' },
-			{ template: 'Q-YYYY-{random:6}', desc: '2-2025-a7bF9c.md' },
+			{ template: '{YYYY}-{MM}-{DD}_note', desc: '2025-04-24_note.md' },
+			{ template: '{YYYY}-{MM}-{DD}_{HH}-{mm}-{ss}', desc: '2025-04-24_15-30-45.md' },
+			{ template: '{MMM}-{D}-{YYYY}_meeting-notes', desc: 'Apr-24-2025_meeting-notes.md' },
+			{ template: '{Q}-{YYYY}-{random:6}', desc: '2-2025-a7bF9c.md' },
 			{ template: 'note_{random:6}', desc: 'note_a7bF9c.md' },
 			{ template: 'note_{shortid}', desc: 'note_2a9d8f7b.md' },
 			{ template: '{uuid}', desc: '123e4567-e89b-12d3-a456-426614174000.md' },
