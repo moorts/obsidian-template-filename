@@ -13,6 +13,7 @@ const DEFAULT_SETTINGS: TemplateFilenameSettings = {
 export default class TemplateFilenamePlugin extends Plugin {
 	settings: TemplateFilenameSettings;
 	private globalCounter: number = 1;
+	private tagCounter: number = 1;
 	private namedCounters: Record<string, number> = {};
 
 	async onload() {
@@ -271,6 +272,21 @@ export default class TemplateFilenamePlugin extends Plugin {
 					const value = this.globalCounter;
 					this.globalCounter++;
 					return value.toString();
+				}
+			}
+
+			case 'tag': {
+				const digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+				if (params.length > 0) {
+					if (params[0] === 'reset') {
+						this.tagCounter = 1;
+						return '';
+					}
+				} else {
+					const value = this.tagCounter;
+					this.tagCounter++;
+
+					return ('0000'+value.toString(36).toUpperCase()).slice(-4);
 				}
 			}
 			
