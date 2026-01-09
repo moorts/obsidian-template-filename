@@ -13,11 +13,13 @@ const DEFAULT_SETTINGS: TemplateFilenameSettings = {
 export default class TemplateFilenamePlugin extends Plugin {
 	settings: TemplateFilenameSettings;
 	private globalCounter: number = 1;
-	private tagCounter: number = 1;
+	private tagCounter: number = undefined;
 	private namedCounters: Record<string, number> = {};
 
 	async onload() {
 		await this.loadSettings();
+
+		this.tagCounter = parseInt(this.app.loadLocalStorage('template-filename-tag-count') | "1");
 
 		// Add ribbon icon
 		this.addRibbonIcon('file-plus', 'Create note with template filename', () => {
@@ -285,6 +287,8 @@ export default class TemplateFilenamePlugin extends Plugin {
 				} else {
 					const value = this.tagCounter;
 					this.tagCounter++;
+
+					this.app.saveLocalStorage('template-filename-tag-count', this.tagCounter.toString());
 
 					return ('0000'+value.toString(36).toUpperCase()).slice(-4);
 				}
