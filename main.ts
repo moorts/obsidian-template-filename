@@ -19,7 +19,7 @@ export default class TemplateFilenamePlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		this.tagCounter = parseInt(this.app.loadLocalStorage('template-filename-tag-count') | "1");
+		this.tagCounter = parseInt(this.app.loadLocalStorage('template-filename-tag-count') || "1");
 
 		// Add ribbon icon
 		this.addRibbonIcon('file-plus', 'Create note with template filename', () => {
@@ -278,7 +278,6 @@ export default class TemplateFilenamePlugin extends Plugin {
 			}
 
 			case 'tag': {
-				const digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 				if (params.length > 0) {
 					if (params[0] === 'reset') {
 						this.tagCounter = 1;
